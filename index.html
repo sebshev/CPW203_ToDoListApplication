@@ -12,22 +12,27 @@
     <form>
         <label for="title">Title:</label>
         <input id="title" type="text">
+        <span>*</span>
         <br>
         
         <label for="dueDate">Due Date:</label>
         <input id="dueDate" type="text">
+        <span>*</span>
+
         <br>
 
         <input type="checkbox">
-        <label for="complete">Complete?</label>
+        <label for="isComplete">Complete?</label>    
+
         <br>
 
-        <input type="button" value="Add Item">
-
-        <script src="https://unpkg.com/js-datepicker"></script>
-        <script>
-            const picker = datepicker('#dueDate')
-        </script>
+        <input id="addItemBtn" type="button" value="Add Item">
     </form>
+    <h2>To Do Items</h2>
+    <div id="completeItems"></div>
+    <div id="incompleteItems"></div>
+
+    <script src="https://unpkg.com/js-datepicker"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>
