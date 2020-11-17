@@ -34,7 +34,7 @@ function displayToDoItem(item) {
     var itemText = document.createElement("h4");
     itemText.innerText = item.title;
     var itemDueDate = document.createElement("p");
-    itemDueDate.innerText = item.dueDate.toString();
+    itemDueDate.innerText = getInput("dueDate").value.toString();
     var itemDiv = document.createElement("div");
     if (item.isComplete) {
         itemDiv.classList.add("complete");

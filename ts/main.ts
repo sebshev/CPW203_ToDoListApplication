@@ -63,7 +63,7 @@ function displayToDoItem(item:toDoItem):void{
 
     // puts the due date into a p element
     let itemDueDate = document.createElement("p");
-    itemDueDate.innerText = item.dueDate.toString();
+    itemDueDate.innerText = getInput("dueDate").value.toString();
 
     // creates a div to store the previos 2 elements into
     let itemDiv = document.createElement("div");
