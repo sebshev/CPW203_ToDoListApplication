@@ -11,7 +11,7 @@ window.onload = function(){
     let addItemBtn = document.getElementById("addItemBtn");
     addItemBtn.onclick = main;
     //load saved item
-    loadSavedToDo();
+    loadSavedToDoItems();
 }
 
 function main(){
@@ -95,18 +95,25 @@ function displayToDoItem(item:toDoItem):void{
 // store items in web storage
 
 function saveToDo(item:toDoItem):void{
-    // convert object into string to store
-    let itemString = JSON.stringify(item);
+    let currItems = getToDoItems(); // get 
+    
+    if (currItems == null) {
+        currItems = new Array();
+    }
+    currItems.push(item); // add the new item to the current ones
 
-    localStorage.setItem("toDo", itemString);
+    let currItemsString = JSON.stringify(currItems);
+    localStorage.setItem("toDo", currItemsString);
 }
 
-function getToDo():toDoItem{
+function getToDoItems():toDoItem[]{
     let itemString = localStorage.getItem("toDo");
-    let item:toDoItem = JSON.parse(itemString);
+    let item:toDoItem[] = JSON.parse(itemString);
     return item;
 }
-function loadSavedToDo(){
-    let item = getToDo(); // reads from storage
-    displayToDoItem(item);
+function loadSavedToDoItems(){
+    let items = getToDoItems(); // reads from storage
+    for (let i = 0; i < items.length; i++) {
+        displayToDoItem(items[i]);
+    }  
 }
