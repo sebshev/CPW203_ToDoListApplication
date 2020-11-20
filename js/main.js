@@ -7,11 +7,13 @@ var toDoItem = (function () {
 window.onload = function () {
     var addItemBtn = document.getElementById("addItemBtn");
     addItemBtn.onclick = main;
+    loadSavedToDo();
 };
 function main() {
     if (isValid()) {
         var item = getToDoItem();
         displayToDoItem(item);
+        saveToDo(item);
     }
 }
 function isValid() {
@@ -34,7 +36,8 @@ function displayToDoItem(item) {
     var itemText = document.createElement("h4");
     itemText.innerText = item.title;
     var itemDueDate = document.createElement("p");
-    itemDueDate.innerText = getInput("dueDate").value.toString();
+    var dueDate = new Date(item.dueDate.toString());
+    itemDueDate.innerText = dueDate.toDateString();
     var itemDiv = document.createElement("div");
     if (item.isComplete) {
         itemDiv.classList.add("complete");
@@ -49,4 +52,17 @@ function displayToDoItem(item) {
         var incompleteItems = getInput("incompleteItems");
         incompleteItems.appendChild(itemDiv);
     }
+}
+function saveToDo(item) {
+    var itemString = JSON.stringify(item);
+    localStorage.setItem("toDo", itemString);
+}
+function getToDo() {
+    var itemString = localStorage.getItem("toDo");
+    var item = JSON.parse(itemString);
+    return item;
+}
+function loadSavedToDo() {
+    var item = getToDo();
+    displayToDoItem(item);
 }

@@ -10,12 +10,15 @@ class toDoItem {
 window.onload = function(){
     let addItemBtn = document.getElementById("addItemBtn");
     addItemBtn.onclick = main;
+    //load saved item
+    loadSavedToDo();
 }
 
 function main(){
     if (isValid()) {
         let item = getToDoItem();
         displayToDoItem(item);
+        saveToDo(item)
     }
 }
 
@@ -63,9 +66,13 @@ function displayToDoItem(item:toDoItem):void{
 
     // puts the due date into a p element
     let itemDueDate = document.createElement("p");
-    itemDueDate.innerText = getInput("dueDate").value.toString();
 
-    // creates a div to store the previos 2 elements into
+    // itemDueDate.innerText = getInput("dueDate").value.toString();
+    // itemDueDate.innerText = item.dueDate.toString();
+    let dueDate = new Date(item.dueDate.toString());
+    itemDueDate.innerText = dueDate.toDateString();
+
+    // creates a div to store the previous 2 elements into
     let itemDiv = document.createElement("div");
     if (item.isComplete) {
         itemDiv.classList.add("complete");
@@ -85,3 +92,21 @@ function displayToDoItem(item:toDoItem):void{
     }
 }
 
+// store items in web storage
+
+function saveToDo(item:toDoItem):void{
+    // convert object into string to store
+    let itemString = JSON.stringify(item);
+
+    localStorage.setItem("toDo", itemString);
+}
+
+function getToDo():toDoItem{
+    let itemString = localStorage.getItem("toDo");
+    let item:toDoItem = JSON.parse(itemString);
+    return item;
+}
+function loadSavedToDo(){
+    let item = getToDo(); // reads from storage
+    displayToDoItem(item);
+}
