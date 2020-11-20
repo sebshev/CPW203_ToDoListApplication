@@ -32,6 +32,10 @@ function getToDoItem() {
 function getInput(id) {
     return document.getElementById(id);
 }
+function markAsComplete() {
+    var itemDiv = this;
+    itemDiv.classList.add("complete");
+}
 function displayToDoItem(item) {
     var itemText = document.createElement("h4");
     itemText.innerText = item.title;
@@ -44,6 +48,7 @@ function displayToDoItem(item) {
     }
     itemDiv.appendChild(itemText);
     itemDiv.appendChild(itemDueDate);
+    itemDiv.onclick = markAsComplete;
     if (item.isComplete) {
         var completeItems = getInput("completeItems");
         completeItems.appendChild(itemDiv);

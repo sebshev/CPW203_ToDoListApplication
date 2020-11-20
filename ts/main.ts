@@ -55,6 +55,12 @@ function getToDoItem():toDoItem{
 function getInput(id):HTMLInputElement{
     return <HTMLInputElement>document.getElementById(id);
 }
+
+function markAsComplete(){
+    let itemDiv = this;
+    itemDiv.classList.add("complete");
+}
+
 /**
  * Displays item on web page
  * @param item 
@@ -81,7 +87,7 @@ function displayToDoItem(item:toDoItem):void{
     // appends the previous elements to the div as children
     itemDiv.appendChild(itemText);
     itemDiv.appendChild(itemDueDate);
-
+    itemDiv.onclick = markAsComplete;
     if (item.isComplete) {
         let completeItems = getInput("completeItems");
         completeItems.appendChild(itemDiv);
